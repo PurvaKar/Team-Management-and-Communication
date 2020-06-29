@@ -43,13 +43,9 @@ class RegisterForm(FlaskForm):
 
 
 @app.route('/')
-def index():
-    return render_template('index.html')
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
-
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user:
@@ -57,7 +53,7 @@ def login():
                 login_user(user, remember=form.remember.data)
                 return redirect(url_for('dashboard'))
 
-        return '<h1>Invalid username or password</h1>'
+        flash('Invalid username or password!')
 
     return render_template('login.html', form=form)
 
@@ -70,7 +66,7 @@ def signup():
         new_user = User(username=form.username.data, email=form.email.data, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
-        flash('Account Created')  #Not working check this
+        flash('Account Created!')  #Not working check this
         return redirect(url_for('login'))
 
     return render_template('signup.html', form=form)
@@ -84,7 +80,7 @@ def dashboard():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('index'))
+    return redirect(url_for('login'))
 
 if __name__ == '__main__':
     app.run(debug=True)

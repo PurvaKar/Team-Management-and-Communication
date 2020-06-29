@@ -1,20 +1,68 @@
-body {
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background-color: #eee;
+*
+{
+  box-sizing: border-box;
 }
 
-.form-signin {
-  max-width: 330px;
-  padding: 15px;
+/* Move down content because we have a fixed navbar that is 50px tall */
+body 
+{
+  padding-top: 50px;
+  background-color: #0a0614;
+}
+.navbar-fixed-top 
+{
+  padding: 0px;
+  background-color: black;
+}
+.navbar-header
+{
+  width: 100%;
+  margin-top: 1px;
+  margin-bottom: 0px;
   margin: 0 auto;
 }
-.form-signin .form-signin-heading,
-.form-signin .checkbox {
-  margin-bottom: 10px;
+.navbar-header h4
+{
+  font-size: 47px;
+  font-family: 'Piedra', cursive;
+  color: white;
+  padding: 0px;
 }
-.form-signin .checkbox {
+.msg
+{
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 30px;
+  margin-bottom: -20px;
+}
+.container
+{
+  margin-top: 30px;
+  padding: 50px;
+}
+.form-signin 
+{
+  max-width: 330px;
+  padding: 40px;
+  padding-top: 30px;
+  padding-bottom: 60px;
+  margin: 0 auto;
+  border-radius: 20px;
+  background-color: rgb(60, 60, 60);
+  color: #e9ecf0;
+}
+.form-signin .form-signin-heading
+{
+   font-family: 'Holtwood One SC', serif;
+   font-size: 27px;
+   color: white;
+   padding: 10px;
+   margin-bottom: 10px;
+}
+.form-signin .checkbox 
+{
   font-weight: normal;
+  margin-bottom: 20px;
 }
 .form-signin .form-control {
   position: relative;
@@ -23,9 +71,10 @@ body {
      -moz-box-sizing: border-box;
           box-sizing: border-box;
   padding: 10px;
-  font-size: 16px;
+  font-size: 17px;
 }
-.form-signin .form-control:focus {
+.form-signin .form-control:focus 
+{
   z-index: 2;
 }
 .form-signin input[type="email"] {
@@ -37,4 +86,24 @@ body {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+.already
+{
+  margin-top: 20px;
+  color: white;
+  font-size: 15px;
+}
+.container a
+{
+  text-decoration: none;
+  font-size: 15px;
+  color: white;
+  margin-top: 5px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #0a0614;
+}
+.container a:hover
+{
+  background-color: black;
 }
