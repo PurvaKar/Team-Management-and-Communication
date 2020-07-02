@@ -27,6 +27,18 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(50), unique=True)
     password = db.Column(db.String(80))
 
+class Project(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    projectname = db.Column(db.String(15), unique=True)
+    creator = db.Column(db.String(15))
+    userid = db.Column(db.Integer)
+
+class Projectdetail(UserMixin, db.Model):
+    userid = db.Column(db.Integer, primary_key=True)
+    projectid = db.Column(db.Integer)
+    employeename = db.Column(db.String(15))
+    designation = db.Column(db.String(15))
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -40,6 +52,9 @@ class RegisterForm(FlaskForm):
     email = StringField('Email', validators=[InputRequired(), Email(message='Invalid email'), Length(max=50)])
     username = StringField('Username', validators=[InputRequired(), Length(min=4, max=15)])
     password = PasswordField('Password', validators=[InputRequired(), Length(min=8, max=80)])
+
+class AddForm(FlaskForm):
+    projectname = StringField('Project Name', validators=[InputRequired(), Length( max=40)])
 
 
 @app.route('/')
@@ -66,7 +81,7 @@ def signup():
         new_user = User(username=form.username.data, email=form.email.data, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
-        flash('Account Created!')  #Not working check this
+        flash('Account Created!')
         return redirect(url_for('login'))
 
     return render_template('signup.html', form=form)
@@ -75,6 +90,32 @@ def signup():
 @login_required
 def dashboard():
     return render_template('dashboard.html', name=current_user.username)
+
+@app.route('/myprojects', methods=['GET', 'POST'])
+@login_required
+def myproject():
+    tasks = Project.query.filter_by(userid=current_user.id)
+    return render_template('myproject.html', tasks=tasks, name=current_user.username)
+
+@app.route('/addproject', methods=['GET', 'POST'])
+@login_required
+def addproject():
+    form = AddForm()
+
+    if form.projectname.data != None:
+        pro = Project.query.filter_by(projectname=form.projectname.data)
+        if pro: 
+            flash('PROJECT NAME ALREADY EXIST!')
+            return redirect(url_for('addproject'))
+        else:
+            new_project = Project(projectname=form.projectname.data, creator=current_user.username, userid=current_user.id)
+            db.session.add(new_project)
+            db.session.commit()
+            flash('PROJECT ADDED!')
+            return redirect(url_for('dashboard'))
+
+
+    return render_template('addproject.html', title='New Project', form=form, legend='New Project', name=current_user.username)
 
 @app.route('/logout')
 @login_required

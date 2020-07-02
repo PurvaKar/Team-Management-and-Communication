@@ -1,12 +1,13 @@
 {% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}
-Dashboard
+Add Project
 {% endblock %}
 
 {% block styles %}
 {{super()}}
-<link rel="stylesheet" href="{{url_for('.static', filename='dashboard.css')}}">
+<link rel="stylesheet" href="{{url_for('.static', filename='addproject.css')}}">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Piedra&display=swap" rel="stylesheet">
 {% endblock %}
@@ -33,25 +34,33 @@ Dashboard
         <div class="col-sm-3 col-md-2 sidebar">
           <center><h1 class="page-header">{{ name }}</h1></center>
           <ul class="nav nav-sidebar">
-            <li><a href="#"><i class="fa fa-home" aria-hidden="true"></i>&nbspDashboard</a></li>
+            <li><a href="{{ url_for('dashboard') }}"><i class="fa fa-home" aria-hidden="true"></i>&nbspDashboard</a></li>
             <li><a href="{{ url_for('myproject') }}"><i class="fa fa-tasks fa-fw" aria-hidden="true"></i>My Projects</a></li>
             <li><a href="#"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Personal</a></li>
-            <li><a href="{{ url_for('addproject') }}"><i class="fa fa-plus" aria-hidden="true"></i>Add Project</a></li>
+            <li><a href="#"><i class="fa fa-plus" aria-hidden="true"></i>Add Project</a></li>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <center><h1 class="page-header">Hello {{ name }} !!!</h1></center>
-          <div class="msg">
-            {% with messages = get_flashed_messages() %}
-                    {% if messages %}
-                      {% for message in messages %}
-                        <div class="alert alert-info" role="alert">
-                          <center>{{message}}</center>
-                        </div>
-                      {% endfor %}
-                    {% endif %}
-            {% endwith %}
-          </div>
+          <center><h1 class="page-header">ADD NEW PROJECT</h1></center>
+            <div class="msg">
+              {% with messages = get_flashed_messages() %}
+                      {% if messages %}
+                        {% for message in messages %}
+                          <div class="alert alert-info" role="alert">
+                            <center>{{message}}</center>
+                          </div>
+                        {% endfor %}
+                      {% endif %}
+              {% endwith %}
+            </div>
+            <div class="container">
+
+              <form class="form-signin" method="POST" action="/addproject">
+                <center>{{ wtf.form_field(form.projectname) }}</center>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">ADD PROJECT</button>
+              </form>
+
+            </div> 
         </div>
       </div>
     </div>
