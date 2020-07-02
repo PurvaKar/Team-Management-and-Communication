@@ -2,7 +2,7 @@
 {% extends "bootstrap/base.html" %}
 
 {% block title %}
-Dashboard
+My Projects
 {% endblock %}
 
 {% block styles %}
@@ -21,7 +21,7 @@ Dashboard
         </div>
         <div class="nav-con">
           <ul>
-            <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+            <li><a href="{{ url_for('logout') }}"><i class="fa fa-power-off" aria-hidden="true"></i>&nbsp&nbspLog Out</a></li>
           </ul>
           <!--<form class="navbar-form navbar-right">
             <input type="text" class="form-control" placeholder="Search...">
@@ -37,7 +37,7 @@ Dashboard
           <ul class="nav nav-sidebar">
             <li><a href="{{ url_for('dashboard') }}"><i class="fa fa-home" aria-hidden="true"></i>&nbspDashboard</a></li>
             <li><a href="#"><i class="fa fa-tasks fa-fw" aria-hidden="true"></i>My Projects</a></li>
-            <li><a href="#"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Personal</a></li>
+            <li><a href="{{ url_for('personaltask') }}"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Personal</a></li>
             <li><a href="{{ url_for('addproject') }}"><i class="fa fa-plus" aria-hidden="true"></i>Add Project</a></li>
           </ul>
         </div>
@@ -57,7 +57,7 @@ Dashboard
 			          			<td>{{task.projectname}}</td>
 			          			<td>{{task.creator}}</td>
 			          			<td>NEW</td>
-                        		<td><a href="#">Open</a></td>
+                      <td><a href="{{ url_for('update_project', project_id=task.id, project_name=task.projectname) }}">Open</a></td>
 			          		</tr>
 			          		<tr class="spacer"></tr>
 			        {% endfor %}

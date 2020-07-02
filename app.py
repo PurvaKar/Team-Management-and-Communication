@@ -33,6 +33,11 @@ class Project(UserMixin, db.Model):
     creator = db.Column(db.String(15))
     userid = db.Column(db.Integer)
 
+class PersonalTask(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    userid = db.Column(db.Integer)
+    task = db.Column(db.String(1500))
+
 class Projectdetail(UserMixin, db.Model):
     userid = db.Column(db.Integer, primary_key=True)
     projectid = db.Column(db.Integer)
@@ -55,6 +60,9 @@ class RegisterForm(FlaskForm):
 
 class AddForm(FlaskForm):
     projectname = StringField('Project Name', validators=[InputRequired(), Length( max=40)])
+
+class AddTaskForm(FlaskForm):
+    task = StringField('Task To-Do', validators=[InputRequired(), Length( max=1500)])
 
 
 @app.route('/')
@@ -96,6 +104,40 @@ def dashboard():
 def myproject():
     tasks = Project.query.filter_by(userid=current_user.id)
     return render_template('myproject.html', tasks=tasks, name=current_user.username)
+
+@app.route("/<int:project_id>/<string:project_name>", methods=['GET', 'POST'])
+@login_required
+def update_project(project_id, project_name):
+    task = Project.query.get_or_404(project_id)
+    
+
+    return render_template('teamdetails.html', title='Update Project', task=task, legend='Update Project', name=current_user.username)
+
+
+
+@app.route('/personaltask', methods=['GET', 'POST'])
+@login_required
+def personaltask():
+    form = AddTaskForm()
+    if form.task.data!=None:
+        new_task = PersonalTask(userid=current_user.id, task=form.task.data)
+        db.session.add(new_task)
+        db.session.commit()
+        flash('TASK ADDED!')
+        return redirect(url_for('personaltask'))
+
+    tasks = PersonalTask.query.filter_by(userid=current_user.id)
+    return render_template('personaltask.html', tasks=tasks, form=form, name=current_user.username)
+
+
+@app.route('/personaltask/<int:task_id>/delete', methods=['POST'])
+@login_required
+def delete_task(task_id):
+    taskd = PersonalTask.query.get_or_404(task_id)
+    db.session.delete(taskd)
+    db.session.commit()
+    return redirect(url_for('personaltask'))
+
 
 @app.route('/addproject', methods=['GET', 'POST'])
 @login_required

@@ -1,0 +1,196 @@
+*
+{
+  box-sizing: border-box;
+}
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body 
+{
+  padding-top: 50px;
+  background-color: #0a0614;
+}
+
+
+
+/*
+ * Top navigation
+ * Hide default border to remove 1px line.
+ */
+
+.navbar-fixed-top 
+{
+  padding: 0px;
+  background-color: black;
+}
+.navbar-header
+{
+  width: 100px;
+  margin-top: 1px;
+  margin-bottom: 0px;
+}
+.navbar-header h4
+{
+  font-size: 27px;
+  font-family: 'Piedra', cursive;
+  color: white;
+  padding: 0px;
+}
+.nav-con
+{
+  float: right;
+}
+.nav-con ul 
+{
+  display: inline;
+  list-style: none;
+  text-decoration: none;
+  color: white;
+}
+.nav-con ul li
+{
+  float: left;
+  padding: 14px;
+}
+.nav-con ul li a
+{
+  text-decoration: none;
+  color: white;
+  font-size: 15px;
+  font-family: 'Piedra', cursive;
+  padding: 18px;
+}
+.nav-con ul li a:hover
+{
+  background-color: grey;
+}
+/*
+ * Sidebar
+ */
+.sidebar 
+{
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    background-color: #a903fc;
+    margin: 0px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+/* Sidebar navigation */
+.nav-sidebar 
+{
+  margin: 0px;
+  margin-top: 50px;
+}
+.nav-sidebar  li a 
+{
+  width: 100%;
+  padding-right: 30px;
+  padding-left: 30px;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  color: white;
+  font-size: 20px;
+  font-family: 'Piedra', cursive;
+}
+.nav-sidebar  li a i
+{
+  margin-right: 10px;
+}
+.nav-sidebar  li a:hover
+{
+  background-color: #7300ff;
+}
+.nav-sidebar  li a:focus
+{
+  background-color: #7300ff;
+}
+/*
+ * Main content
+ */
+
+.main 
+{
+  padding: 30px;
+}
+
+.main .page-header 
+{
+  margin-top: 0;
+  background-color: rgb(60, 60, 60);
+  padding: 20px;
+  color: white;
+  border-radius: 27px;
+}
+.main .containe
+{
+  height: 500px;
+  width: 63%;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  margin: 0 auto;
+  margin-top: 45px;
+  background-color: white;
+}
+.main .containe .msg-header
+{
+  color: white;
+  margin: 0px;
+  padding: 5px;
+  width: 100%;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  border-bottom: 3px solid black;
+  background-color: #25254f; 
+}
+.main .containe .msg-header a
+{
+  font-size: 30px;
+  float: right;
+  padding: 5px;
+  padding-right: 12px;
+  border-radius: 50%;
+  padding-left: 12px;
+  background: #25254f;
+  border: 1px solid black;
+  margin-top: -20px;
+  margin-right: 50px;
+  color:white;
+}
+.main .containe .msg-content
+{
+  height: 418px;
+  overflow: auto;
+  width: 100%;
+}
+
+.main .containe .msg-content table
+{
+  width: 100%;
+}
+.main tbody tr
+{
+  background-color: white;
+  font-family: 'IBM Plex Serif', serif;
+}
+.main tbody td
+{
+  padding: 21px;
+  font-size: 15px;
+  text-align: left;
+  width: 80%;
+}
+.main tbody td button
+{
+  text-decoration: none;
+  padding: 10px;
+  background-color: grey;
+  color: white;
+  font-size: 15px;
+  border-radius: 50%;
+  margin-left: 35px;
+}

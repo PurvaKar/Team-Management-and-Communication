@@ -20,7 +20,7 @@ Add Project
         </div>
         <div class="nav-con">
           <ul>
-            <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+            <li><a href="{{ url_for('logout') }}"><i class="fa fa-power-off" aria-hidden="true"></i>&nbsp&nbspLog Out</a></li>
           </ul>
           <!--<form class="navbar-form navbar-right">
             <input type="text" class="form-control" placeholder="Search...">
@@ -36,7 +36,7 @@ Add Project
           <ul class="nav nav-sidebar">
             <li><a href="{{ url_for('dashboard') }}"><i class="fa fa-home" aria-hidden="true"></i>&nbspDashboard</a></li>
             <li><a href="{{ url_for('myproject') }}"><i class="fa fa-tasks fa-fw" aria-hidden="true"></i>My Projects</a></li>
-            <li><a href="#"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Personal</a></li>
+            <li><a href="{{ url_for('personaltask') }}"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Personal</a></li>
             <li><a href="#"><i class="fa fa-plus" aria-hidden="true"></i>Add Project</a></li>
           </ul>
         </div>
