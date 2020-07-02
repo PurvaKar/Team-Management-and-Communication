@@ -103,8 +103,8 @@ def addproject():
     form = AddForm()
 
     if form.projectname.data != None:
-        pro = Project.query.filter_by(projectname=form.projectname.data)
-        if pro: 
+        pro = Project.query.filter_by(projectname=form.projectname.data).first()
+        if pro!=None: 
             flash('PROJECT NAME ALREADY EXIST!')
             return redirect(url_for('addproject'))
         else:
