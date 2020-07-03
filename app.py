@@ -105,7 +105,7 @@ def myproject():
     tasks = Project.query.filter_by(userid=current_user.id)
     return render_template('myproject.html', tasks=tasks, name=current_user.username)
 
-@app.route("/<int:project_id>/<string:project_name>", methods=['GET', 'POST'])
+@app.route("/<int:project_id>/<string:project_name>/teamdetails", methods=['GET', 'POST'])
 @login_required
 def update_project(project_id, project_name):
     task = Project.query.get_or_404(project_id)
