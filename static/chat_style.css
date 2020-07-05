@@ -1,0 +1,252 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+*
+{
+  box-sizing: border-box;
+}
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body 
+{
+  padding-top: 50px;
+  background-color: #0a0614;
+}
+
+
+
+/*
+ * Top navigation
+ * Hide default border to remove 1px line.
+ */
+
+.navbar-fixed-top 
+{
+  padding: 0px;
+  background-color: black;
+}
+.navbar-header
+{
+  width: 100px;
+  margin-top: 1px;
+  margin-bottom: 0px;
+}
+.navbar-header h4
+{
+  font-size: 27px;
+  font-family: 'Piedra', cursive;
+  color: white;
+  padding: 0px;
+}
+.nav-con
+{
+  float: right;
+}
+.nav-con ul 
+{
+  display: inline;
+  list-style: none;
+  text-decoration: none;
+  color: white;
+}
+.nav-con ul li
+{
+  float: left;
+  padding: 14px;
+}
+.nav-con ul li a
+{
+  text-decoration: none;
+  color: white;
+  font-size: 15px;
+  font-family: 'Piedra', cursive;
+  padding: 18px;
+}
+.nav-con ul li a:hover
+{
+  background-color: grey;
+}
+
+/*
+ * Top navigation
+ */
+.navbar-top 
+{
+  padding: 0px;
+  background-color: #25254f;
+}
+.nav-con-top ul 
+{
+  display: inline;
+  list-style: none;
+  text-decoration: none;
+  color: white;
+}
+.nav-con-top ul li
+{
+  float: left;
+  padding: 14px;
+}
+.nav-con-top ul li a
+{
+  text-decoration: none;
+  color: white;
+  font-size: 15px;
+  font-family: 'Piedra', cursive;
+  padding: 18px;
+}
+.nav-con-top ul li a:hover
+{
+  color:  #7300ff;
+}
+
+/*
+ * Main content
+ */
+
+.main 
+{
+  padding: 0px;
+}
+.sidebarr 
+{
+    float: left; 
+    margin: 0px;
+    height: 650px;
+    padding: 10px;
+    width: 15%;
+    border-right: 0.5px solid #898c91;
+}
+
+.sidebarr p 
+{
+    padding: 5px;
+    color: white;
+    background-color: transparent; 
+}
+
+.sidebarr p:hover 
+{
+    color: #ffc107;
+}
+
+.sidebarr h4 
+{
+   padding: 5px;
+}
+
+#rightside-pannel 
+{
+    overflow: hidden; /* Make this div take up the rest of the horizontal space, and no more */
+}
+#display-message-section 
+{
+    margin-top: 5em;
+    min-height: 62vh;
+    max-height: 62vh;
+    overflow-y: auto; /*Make  this section scrolable */
+}
+
+#input-area 
+{
+    padding: 29px;
+    width: 100%;
+    border-radius: 10px;
+}
+#input-area input[type=text]
+{
+    width: 80%;
+    float: left;
+}
+input[type=text]:focus
+{
+    border-color: #ffc107;
+    width: 80%;
+    float: left;
+}
+.input-group-append
+{
+    width: 20%;
+    float: right;
+    margin: 0px;
+    padding: 0px;
+}
+#send_message
+{
+    float: right;
+    width: 90%;
+}
+.others-msg {
+    margin-right:7em;
+    margin-left: 1em;
+    padding: 0.5em 0.5em 0.5em 1em;
+    border-radius: 5px;
+    border-color: grey;
+    border-width: 0.5px;
+    border-style: solid;
+    background-color: #C2DBFB;
+    /* animation */
+    animation-name: fadeIn;
+    animation-duration: 0.75s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
+}
+
+.my-msg {
+    margin-left:7em;
+    margin-right:1em;
+    padding: 0.5em 0.5em 0.5em 1em;
+    border-radius: 5px;
+    border-color: #206ED2;
+    border-width: 1px;
+    border-style: solid;
+    /* animation */
+    animation-name: fadeIn;
+    animation-duration: 0.75s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
+}
+
+.system-msg {
+    margin-right:7em;
+    margin-left: 1em;
+    padding: 0.5em 0.5em 0.5em 1em;
+    color: #656d78;
+    font-size:0.9em;
+}
+
+.timestamp {
+    color: #656d78;
+    font-size:0.7em;
+}
+
+.other-username {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #206ED2;
+}
+
+.my-username {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #FF6B13;
+}
+
+#msg-input {
+    border-color: #ffc107;
+    border-width: 5px;
+}
+
+#get-username {
+    display: none !important;
+}

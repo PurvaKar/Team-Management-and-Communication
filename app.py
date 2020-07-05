@@ -10,16 +10,32 @@ from datetime import date
 from sqlalchemy import update
 import os
 
+import time
+from flask import Flask, render_template, redirect, url_for, flash
+from flask_login import LoginManager, login_user, current_user, login_required, logout_user
+from flask_socketio import SocketIO, send, emit, join_room, leave_room
+
+from wtform_fields import *
+from models import *
+
+
+
 app = Flask(__name__)
+appp = Flask(__name__)
 file_path = os.path.abspath(os.getcwd())+"/database.db"
 app.config['SECRET_KEY'] = 'oursecret'
+appp.config['SECRET_KEY'] = 'oursecret'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'+file_path
+appp.config['SQLALCHEMY_DATABASE_URI']= 'postgres://vhamzkemypxqmb:9f41c67dbf743a8d89cc8eee833552c1fcf16eb42dafe4c96a9d7b3a915bef52@ec2-52-0-155-79.compute-1.amazonaws.com:5432/d5h8odi3bmgm5g'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+appp.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 bootstrap = Bootstrap(app)
 db = SQLAlchemy(app)
+dbb = SQLAlchemy(appp)
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
+
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -63,6 +79,10 @@ class AddForm(FlaskForm):
 
 class AddTaskForm(FlaskForm):
     task = StringField('Task To-Do', validators=[InputRequired(), Length( max=1500)])
+
+
+socketio = SocketIO(app)
+ROOMS = ["issues", "updates", "discussions", "general"]
 
 
 @app.route('/')
@@ -158,6 +178,58 @@ def addproject():
 
 
     return render_template('addproject.html', title='New Project', form=form, legend='New Project', name=current_user.username)
+
+
+
+@app.route("/chat", methods=['GET', 'POST'])
+@login_required
+def chat():
+    return render_template("chat.html", username=current_user.username, rooms=ROOMS)
+
+
+@app.errorhandler(404)
+@login_required
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    return render_template('404.html'), 404
+
+
+@socketio.on('incoming-msg')
+@login_required
+def on_message(data):
+    """Broadcast messages"""
+
+    msg = data["msg"]
+    username = data["username"]
+    room = data["room"]
+    # Set timestamp
+    time_stamp = time.strftime('%b-%d %I:%M%p', time.localtime())
+    send({"username": username, "msg": msg, "time_stamp": time_stamp}, room=room)
+
+
+@socketio.on('join')
+@login_required
+def on_join(data):
+    """User joins a room"""
+
+    username = data["username"]
+    room = data["room"]
+    join_room(room)
+
+    # Broadcast that new user has joined
+    send({"msg": username + " has joined the " + room + " room."}, room=room)
+
+
+@socketio.on('leave')
+@login_required
+def on_leave(data):
+    """User leaves a room"""
+
+    username = data['username']
+    room = data['room']
+    leave_room(room)
+    send({"msg": username + " has left the room"}, room=room)
+
 
 @app.route('/logout')
 @login_required
