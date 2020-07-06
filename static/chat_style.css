@@ -1,16 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
 *
 {
   box-sizing: border-box;
@@ -148,6 +135,12 @@ body
 #rightside-pannel 
 {
     overflow: hidden; /* Make this div take up the rest of the horizontal space, and no more */
+}
+
+.cursor-pointer
+{
+    cursor: pointer;
+    
 }
 #display-message-section 
 {

@@ -8,7 +8,7 @@ Dashboard
 
 {% block styles %}
 {{super()}}
-<link rel="stylesheet" href="{{url_for('.static', filename='teamdetails.css')}}">
+<link rel="stylesheet" href="{{url_for('.static', filename='workdetails.css')}}">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Piedra&display=swap" rel="stylesheet">
 {% endblock %}
@@ -33,12 +33,12 @@ Dashboard
       <div class="container-fluid">
         <div class="nav-con-top">
           <ul>
-          	<li><a href="{{ url_for('myproject') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp&nbspBack</a></li>
-          	{% if name == task.creator %}
+            <li><a href="{{ url_for('myproject') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp&nbspBack</a></li>
+            {% if name == task.creator %}
                <li><a href="#" data-toggle="modal" data-target="#staticModal"><i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp&nbspAdd Member</a></li>   
             {% endif %}
-          	<li><a href="#"><i class="fa fa-group" aria-hidden="true"></i>&nbsp&nbspTeam Details</a></li>
-          	<li><a href="{{ url_for('workdetails', project_id=task.id, project_name=task.projectname) }}"><i class="fa fa-briefcase" aria-hidden="true"></i>&nbsp&nbspWork Details</a></li>
+            <li><a href="{{ url_for('update_project', project_id=task.id, project_name=task.projectname) }}"><i class="fa fa-group" aria-hidden="true"></i>&nbsp&nbspTeam Details</a></li>
+            <li><a href="#"><i class="fa fa-briefcase" aria-hidden="true"></i>&nbsp&nbspWork Details</a></li>
             <li><a href="{{ url_for('chat', project_id=task.id, project_name=task.projectname) }}"><i class="fa fa-comments-o" aria-hidden="true"></i>&nbsp&nbspChat</a></li>
             
           </ul>
@@ -48,7 +48,7 @@ Dashboard
     <div class="container-fluid">
       <div class="row">
         <div class="main">
-          <center><h1 class="page-header">{{task.projectname}}</h1></center>
+          <center><h1 class="page-header">TASKS</h1></center>
           <div class="msg">
           {% with messages = get_flashed_messages() %}
             {% if messages %}
@@ -60,23 +60,26 @@ Dashboard
             {% endif %}
           {% endwith %}
           </div>
+          <div class="btn">
+            <button data-toggle="modal" data-target="#smallModal" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp&nbspADD TASK</button>
+          </div>
           <div class="team-details">
-  			    <table>
-            		<thead>
-  	          		<tr>
-  	          			<th>Employee Name</th>
-  	          			<th>Role</th>
-  	          		</tr>
-            		</thead>
-            		<tbody>
-  	          		{% for p in project %}
-  	          				<tr>
-  			          			<td>{{p.employeename}}</td>
-  			          			<td>{{p.designation}}</td>
-  			          	  </tr>
-  			          {% endfor %}
-  		          </tbody>
-            	</table>        	
+            <table>
+                <thead>
+                  <tr>
+                    <th>Employee Name</th>
+                    <th>Role</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for p in project %}
+                      <tr>
+                        <td>{{p.title}}</td>
+                        <td>{{p.description}}</td>
+                      </tr>
+                  {% endfor %}
+                </tbody>
+              </table>          
           </div>
         </div>
       </div>
@@ -94,6 +97,25 @@ Dashboard
               <form class="form-signin" method="POST" action="{{ url_for('update_project', project_id=task.id, project_name=task.projectname) }}">
                 <center>{{ wtf.form_field(form.emp_name) }}</center>  
                 <center>{{ wtf.form_field(form.role) }}</center> 
+                <button class="btn btn-lg btn-primary btn-block" type="submit">ADD TASK</button>
+              </form>
+          </div>
+        </div>
+      </div>
+      </div>
+    <div class="modal fade" id="smallModal" tabindex="-1" role="dialog" aria-labelledby="smallModalLabel" aria-hidden="true"
+       data-backdrop="static">
+        <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form class="form-signin" method="POST" action="{{ url_for('workdetails', project_id=task.id, project_name=task.projectname) }}">
+                <center>{{ wtf.form_field(form2.title) }}</center>  
+                <center>{{ wtf.form_field(form2.des) }}</center>  
                 <button class="btn btn-lg btn-primary btn-block" type="submit">ADD TASK</button>
               </form>
           </div>

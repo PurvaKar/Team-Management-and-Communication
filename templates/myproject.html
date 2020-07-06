@@ -48,16 +48,14 @@ My Projects
 	          		<tr>
 	          			<th>Project Name</th>
 	          			<th>Project Added By</th>
-	          			<th>Status</th>
 	          		</tr>
           		</thead>
           		<tbody>
 	          		{% for task in tasks %}
 	          				<tr>
-			          			<td>{{task.projectname}}</td>
-			          			<td>{{task.creator}}</td>
-			          			<td>NEW</td>
-                      <td><a href="{{ url_for('update_project', project_id=task.id, project_name=task.projectname) }}">Open</a></td>
+			          			<td>{{task.author.projectname}}</td>
+			          			<td>{{task.author.creator}}</td>
+                      <td><a href="{{ url_for('update_project', project_id=task.author.id, project_name=task.author.projectname) }}">Open</a></td>
 			          		</tr>
 			          		<tr class="spacer"></tr>
 			        {% endfor %}

@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, flash
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField
+from wtforms import StringField, PasswordField, BooleanField, SelectField
 from wtforms.validators import InputRequired, Email, Length
 from flask_sqlalchemy  import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -46,19 +46,29 @@ class User(UserMixin, db.Model):
 class Project(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     projectname = db.Column(db.String(15), unique=True)
-    creator = db.Column(db.String(15))
-    userid = db.Column(db.Integer)
+    creator = db.Column(db.String(15), nullable=False)
+    userid = db.Column(db.Integer, nullable=False)
+    projects = db.relationship('Projectdetail', backref='author', lazy=True)
 
 class PersonalTask(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    userid = db.Column(db.Integer)
-    task = db.Column(db.String(1500))
+    userid = db.Column(db.Integer, nullable=False)
+    task = db.Column(db.String(1500), nullable=False)
 
 class Projectdetail(UserMixin, db.Model):
     userid = db.Column(db.Integer, primary_key=True)
-    projectid = db.Column(db.Integer)
-    employeename = db.Column(db.String(15))
-    designation = db.Column(db.String(15))
+    employeename = db.Column(db.String(15), nullable=False)
+    designation = db.Column(db.String(15), nullable=False)
+    projectid= db.Column(db.Integer, db.ForeignKey('project.id'), nullable=False)
+
+class ProjectTask(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(15), nullable=False)
+    description = db.Column(db.String(15), nullable=False)
+    status = db.Column(db.Text, nullable=False, default='UNSOLVED')
+    addedby = db.Column(db.String(15), nullable=False)
+    projectid= db.Column(db.Integer, db.ForeignKey('project.id'), nullable=False)
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -76,10 +86,18 @@ class RegisterForm(FlaskForm):
 
 class AddForm(FlaskForm):
     projectname = StringField('Project Name', validators=[InputRequired(), Length( max=40)])
+    role = StringField('Your Role', validators=[InputRequired()])
 
 class AddTaskForm(FlaskForm):
     task = StringField('Task To-Do', validators=[InputRequired(), Length( max=1500)])
 
+class AddEmpForm(FlaskForm):
+    emp_name = SelectField('Employee Name', choices=[])
+    role = StringField('Role', validators=[InputRequired()])
+
+class TaskForm(FlaskForm):
+    title = StringField('Title', validators=[InputRequired()])
+    des = StringField('Description', validators=[InputRequired()])
 
 socketio = SocketIO(app)
 ROOMS = ["issues", "updates", "discussions", "general"]
@@ -122,7 +140,8 @@ def dashboard():
 @app.route('/myprojects', methods=['GET', 'POST'])
 @login_required
 def myproject():
-    tasks = Project.query.filter_by(userid=current_user.id)
+    tasks = Projectdetail.query.filter_by(employeename=current_user.username).all()
+    
     return render_template('myproject.html', tasks=tasks, name=current_user.username)
 
 @app.route("/<int:project_id>/<string:project_name>/teamdetails", methods=['GET', 'POST'])
@@ -130,9 +149,44 @@ def myproject():
 def update_project(project_id, project_name):
     task = Project.query.get_or_404(project_id)
     
+    form = AddEmpForm()
+    form.emp_name.choices = [(user.username) for user in User.query.all()]
+    if form.emp_name.data!=None and form.role.data!=None:
+        doesexist = Projectdetail.query.filter_by(projectid=project_id, employeename=form.emp_name.data).all()
+        if doesexist:
+            flash('Employee Already Added!')
+        else:
+            new_user = Projectdetail(projectid=project_id, employeename=form.emp_name.data, designation=form.role.data)
+            db.session.add(new_user)
+            db.session.commit()
+            flash('Employee Added!')
+    project = Projectdetail.query.filter_by(projectid=project_id).all()       
+    return render_template('teamdetails.html', title='Update Project', task=task, legend='Update Project', name=current_user.username, form=form, project=project)
 
-    return render_template('teamdetails.html', title='Update Project', task=task, legend='Update Project', name=current_user.username)
+@app.route("/<int:project_id>/<string:project_name>/workdetails", methods=['GET', 'POST'])
+@login_required
+def workdetails(project_id, project_name):
+    task = Project.query.get_or_404(project_id)
+    form = AddEmpForm()
+    form2 = TaskForm()
+    form.emp_name.choices = [(user.username) for user in User.query.all()]
+    if form.emp_name.data!=None and form.role.data!=None:
+        doesexist = Projectdetail.query.filter_by(projectid=project_id, employeename=form.emp_name.data).all()
+        if doesexist:
+            flash('Employee Already Added!')
+        else:
+            new_user = Projectdetail(projectid=project_id, employeename=form.emp_name.data, designation=form.role.data)
+            db.session.add(new_user)
+            db.session.commit()
+            flash('Employee Added!')
+    if form2.title.data !=None and form2.des.data!=None:
+        new_issue = ProjectTask(title=form2.title.data, description=form2.des.data, addedby=current_user.username, projectid=project_id)
+        db.session.add(new_issue)
+        db.session.commit()
+        flash('Issue Added!')
 
+    project = ProjectTaskquery.filter_by(projectid=project_id).all()       
+    return render_template('workdetails.html', title='Update Project', task=task, form2=form2,legend='Update Project', name=current_user.username, form=form, project=project)
 
 
 @app.route('/personaltask', methods=['GET', 'POST'])
@@ -173,6 +227,10 @@ def addproject():
             new_project = Project(projectname=form.projectname.data, creator=current_user.username, userid=current_user.id)
             db.session.add(new_project)
             db.session.commit()
+            pro = Project.query.filter_by(projectname=form.projectname.data).first()
+            new_user = Projectdetail(projectid=pro.id, employeename=current_user.username, designation=form.role.data)
+            db.session.add(new_user)
+            db.session.commit()
             flash('PROJECT ADDED!')
             return redirect(url_for('dashboard'))
 
@@ -181,10 +239,11 @@ def addproject():
 
 
 
-@app.route("/chat", methods=['GET', 'POST'])
+@app.route("/<int:project_id>/<string:project_name>/chat", methods=['GET', 'POST'])
 @login_required
-def chat():
-    return render_template("chat.html", username=current_user.username, rooms=ROOMS)
+def chat(project_id, project_name):
+    task = Project.query.get_or_404(project_id)
+    return render_template("chat.html", username=current_user.username, rooms=ROOMS, task=task)
 
 
 @app.errorhandler(404)
