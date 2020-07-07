@@ -6,7 +6,23 @@ http://scheduleit-todo.herokuapp.com/
 
 
 ## Screenshots
+##### Login Page
+<img src="https://github.com/PurvaKar/Team-Management-and-Communication/blob/master/Screenshots/Login.png">
 
+##### Dashboard
+<img src="https://github.com/PurvaKar/Team-Management-and-Communication/blob/master/Screenshots/DashBoard.png">
+
+##### Adding Project
+<img src="https://github.com/PurvaKar/Team-Management-and-Communication/blob/master/Screenshots/addProject.png">
+
+##### Personal Project
+<img src="https://github.com/PurvaKar/Team-Management-and-Communication/blob/master/Screenshots/individualProject.png">
+
+##### All Tasks
+<img src="https://github.com/PurvaKar/Team-Management-and-Communication/blob/master/Screenshots/allTasks.png">
+
+##### Chat Room
+<img src="https://github.com/PurvaKar/Team-Management-and-Communication/blob/master/Screenshots/chatRoom.png">
 
 
 ## Installation and how to use
