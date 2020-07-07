@@ -1,7 +1,7 @@
 {% extends "bootstrap/base.html" %}
 
 {% block title %}
-Dashboard
+Chat
 {% endblock %}
 
 {% block styles %}
@@ -43,13 +43,17 @@ Dashboard
     </nav>
     <div class="container-fluid">
       <div class="row">
-        <div class="main">
-          <nav class="sidebarr">
-                    <h4>Rooms</h4>
-                    {% for room in rooms %}
-                        <p id="{{ room|title }}" class="select-room cursor-pointer">{{ room|title }}</p>
-                    {% endfor %}
-                </nav>
+        <div class="col-sm-3 col-md-2 sidebar">
+          <nav class="side">
+              <h4>ROOMS</h4>
+                {% for room in rooms %}
+                  <p id="{{ room|title }}" class="select-room cursor-pointer">{{ room|title }}</p>
+                {% endfor %}
+          </nav>
+        </div>
+        
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          
                 <!-- Sidebar end -->
 
                 <!-- Rightside pannel start -->

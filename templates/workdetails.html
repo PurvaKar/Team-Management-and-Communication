@@ -3,7 +3,7 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}
-Dashboard
+Work Details
 {% endblock %}
 
 {% block styles %}
@@ -63,20 +63,37 @@ Dashboard
           <div class="btn">
             <button data-toggle="modal" data-target="#smallModal" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp&nbspADD TASK</button>
           </div>
-          <div class="team-details">
+          <div class="work-details">
             <table>
                 <thead>
                   <tr>
-                    <th>Employee Name</th>
-                    <th>Role</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
                   {% for p in project %}
-                      <tr>
+                      <tr class="spacer"></tr>
+                      <tr class="content">
                         <td>{{p.title}}</td>
                         <td>{{p.description}}</td>
+                        <td>{{p.status}}</td>
+                        <td>
+                        <form method="POST" action="{{ url_for('update_task', task_id=p.id, project_id=task.id, project_name=task.projectname) }}">
+                        {% if p.status != 'SOLVED' %}
+                          <button type= "submit" name="STATUS" value="SOLVED">SOLVED</button>
+                        {% else %}
+                          <button type= "button" name="STATUS" value="SOLVED" style="background-color: grey;">SOLVED</button>
+                        {% endif %}
+                        </form>
+                        </td>
                       </tr>
+                      <tr class="foot">
+                        <td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspAdded By: {{p.addedby}}</td>
+                      </tr>
+                      
                   {% endfor %}
                 </tbody>
               </table>          

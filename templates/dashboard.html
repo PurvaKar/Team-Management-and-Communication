@@ -40,7 +40,7 @@ Dashboard
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <center><h1 class="page-header">Hello {{ name }} !!!</h1></center>
+          <center><h1 class="page-header">ALL PROJECTS</h1></center>
           <div class="msg">
             {% with messages = get_flashed_messages() %}
                     {% if messages %}
@@ -52,6 +52,11 @@ Dashboard
                     {% endif %}
             {% endwith %}
           </div>
+          {% for task in tasks %}
+              <div class="pro_name">
+                {{task.projectname}}
+              </div>
+          {% endfor %}
         </div>
       </div>
     </div>

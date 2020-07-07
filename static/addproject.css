@@ -237,6 +237,10 @@ body
   {
     font-size: 20px;
   }
+  .main .containe
+  {
+    width: 100%;
+  }
   .form-signin 
   {
     width: 100%;

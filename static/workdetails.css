@@ -137,6 +137,55 @@ body
   font-size: 20px;
   color: white;
 }
+.main .work-details
+{
+  width: 75%;
+  margin: 0 auto;
+  background: white;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+.main .work-details table
+{
+  width: 100%;
+}
+.main .work-details table thead
+{
+  border-bottom: 5px solid #0a0614;
+}
+.main .work-details table thead tr th
+{
+  text-align: center;
+  padding: 15px;
+  font-size: 22px;
+  border-radius: 10px;
+}
+.main .work-details table tbody .content td
+{
+  text-align: center;
+  padding: 10px;
+  font-size: 15px;
+}
+.main .work-details table tbody .content td button
+{
+  border-radius: 20px;
+  background-color: green;
+  padding: 8px;
+  color: white;
+}
+.main .work-details table tbody .foot
+{
+  font-size: 12px;
+  border-bottom: 0.5px solid black;
+}
+.main .work-details table tbody .foot td
+{
+  padding: 3px;
+}
+.main .work-details table tbody .spacer
+{
+  height: 10px;
+}
 @media only screen and (max-width: 1000px)
 {
     .main .page-header 
@@ -176,6 +225,84 @@ body
   .main .page-header 
   {
     font-size: 20px;
+    width: 100%;
+  }
+  .nav-con-top ul li
+  {
+    float: left;
+    padding: 3px;
+  }
+  .nav-con-top ul li a
+  {
+    font-size: 12px;
+    padding: 5px;
+  }
+  .main .btn button
+  {
+    padding: 10px;
+    border-radius: 20px;
+    width: 100%;
+    background-color: #25254f;
+    font-size: 10px;
+    color: white;
+  }
+  .main
+  {
+    padding: 15px;
+  }
+  .main .msg
+  {
+    width: 100%;
+  }
+  .main .work-details
+  {
+    width: 100%;
+  }
+  .main .work-details table
+  {
+    width: 100%;
+  }
+  .main .work-details table thead
+  {
+    border-bottom: 5px solid #0a0614;
+  }
+  .main .work-details table thead tr th
+  {
+    text-align: center;
+    padding: 12px;
+    font-size: 15px;
+    border-radius: 10px;
+  }
+  .main .work-details table tbody .content td
+  {
+    text-align: center;
+    padding: 10px;
+    font-size: 12px;
+  }
+  .main .work-details table tbody .content td button
+  {
+    border-radius: 20px;
+    background-color: green;
+    padding: 5px;
+    color: white;
+  }
+  .main .work-details table tbody .foot
+  {
+    font-size: 6px;
+    border-bottom: 0.5px solid black;
+  }
+  .main .work-details table tbody .foot td
+  {
+    padding: 2px;
+  }
+  .main .work-details table tbody .spacer
+  {
+    height: 5px;
+  }
+  .form-signin 
+  {
+    width: 100%;
+    font-size: 15px;
   }
 }
 @media only screen and (max-width: 430px)
@@ -183,5 +310,10 @@ body
   .main .page-header 
   {
     font-size: 17px;
+  }
+  .nav-con-top ul li a
+  {
+    font-size: 9px;
+    padding: 5px;
   }
 }

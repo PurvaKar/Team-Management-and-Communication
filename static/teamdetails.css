@@ -190,6 +190,45 @@ body
   .main .page-header 
   {
     font-size: 20px;
+    width: 100%;
+  }
+  .nav-con-top ul li
+  {
+    float: left;
+    padding: 3px;
+  }
+  .nav-con-top ul li a
+  {
+    text-decoration: none;
+    color: white;
+    font-size: 12px;
+    font-family: 'Piedra', cursive;
+    padding: 5px;
+  }
+  .main .msg
+  {
+    width: 100%;
+  }
+  .main .team-details
+  {
+    width: 100%;
+  }
+  .main table
+  {
+    width: 100%;
+  }
+  .main table thead th
+  {
+    font-size: 15px;
+  }
+  .main table tbody td
+  {
+    font-size: 12px;
+  }
+  .form-signin 
+  {
+    width: 100%;
+      font-size: 15px;
   }
 }
 @media only screen and (max-width: 430px)
@@ -197,5 +236,10 @@ body
   .main .page-header 
   {
     font-size: 17px;
+  }
+  .nav-con-top ul li a
+  {
+    font-size: 9px;
+    padding: 5px;
   }
 }

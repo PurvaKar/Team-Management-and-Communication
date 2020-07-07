@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, flash
+from flask import Flask, render_template, redirect, url_for, flash, request
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SelectField
@@ -60,6 +60,7 @@ class Projectdetail(UserMixin, db.Model):
     employeename = db.Column(db.String(15), nullable=False)
     designation = db.Column(db.String(15), nullable=False)
     projectid= db.Column(db.Integer, db.ForeignKey('project.id'), nullable=False)
+    
 
 class ProjectTask(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -67,7 +68,8 @@ class ProjectTask(UserMixin, db.Model):
     description = db.Column(db.String(15), nullable=False)
     status = db.Column(db.Text, nullable=False, default='UNSOLVED')
     addedby = db.Column(db.String(15), nullable=False)
-    projectid= db.Column(db.Integer, db.ForeignKey('project.id'), nullable=False)
+    project_tasks = db.relationship('Projectdetail', backref='author1', lazy=True)
+    projectid= db.Column(db.Integer, db.ForeignKey('projectdetail.projectid'), nullable=False)
 
 
 @login_manager.user_loader
@@ -135,7 +137,8 @@ def signup():
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    return render_template('dashboard.html', name=current_user.username)
+    tasks = Project.query.all()
+    return render_template('dashboard.html', tasks=tasks, name=current_user.username)
 
 @app.route('/myprojects', methods=['GET', 'POST'])
 @login_required
@@ -184,9 +187,20 @@ def workdetails(project_id, project_name):
         db.session.add(new_issue)
         db.session.commit()
         flash('Issue Added!')
-
+    
     project = ProjectTask.query.filter_by(projectid=project_id).all()       
     return render_template('workdetails.html', title='Update Project', task=task, form2=form2, legend='Update Project', name=current_user.username, form=form, project=project)
+
+@app.route('/<int:project_id>/<string:project_name>/workdetails/<int:task_id>/update', methods=['GET', 'POST'])
+@login_required
+def update_task(task_id, project_id, project_name):
+    task = ProjectTask.query.get_or_404(task_id)
+    if request.method == 'POST':
+        status_u = request.form['STATUS']
+        task_status=ProjectTask.query.filter_by(projectid=project_id, id=task_id).update({ProjectTask.status: status_u})
+        db.session.commit()
+        flash('Issue Updated!')
+    return redirect(url_for('workdetails', project_id=project_id, project_name=project_name))
 
 
 @app.route('/personaltask', methods=['GET', 'POST'])

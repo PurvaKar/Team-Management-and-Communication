@@ -105,31 +105,41 @@ body
 {
   padding: 0px;
 }
-.sidebarr 
+.sidebar
 {
-    float: left; 
+    position: fixed;
+    top: 100px;
+    bottom: 0;
+    left: 0;
     margin: 0px;
-    height: 650px;
-    padding: 10px;
-    width: 15%;
-    border-right: 0.5px solid #898c91;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-right: 0px;
+    padding-left: 0px;
+    border-right: 2px solid grey; 
 }
-
-.sidebarr p 
+.sidebar p 
 {
-    padding: 5px;
+    padding: 15px;
     color: white;
     background-color: transparent; 
+    width: 50%;
+    margin: 0 auto;
+    font-size: 17px;
+}
+.sidebar p:hover 
+{
+    color: pink;
 }
 
-.sidebarr p:hover 
+.sidebar .side h4 
 {
-    color: #ffc107;
-}
-
-.sidebarr h4 
-{
-   padding: 5px;
+   padding: 15px;
+   /*border: 1px solid white;*/
+   text-align: center;
+   color: White;
+   font-size: 30px;
+   border-bottom: 0.5px solid grey; 
 }
 
 #rightside-pannel 
@@ -203,6 +213,7 @@ input[type=text]:focus
     border-color: #206ED2;
     border-width: 1px;
     border-style: solid;
+    background-color: #C2DBFB;
     /* animation */
     animation-name: fadeIn;
     animation-duration: 0.75s;
@@ -242,4 +253,132 @@ input[type=text]:focus
 
 #get-username {
     display: none !important;
+}
+@media only screen and (max-width: 1000px)
+{
+    .main .page-header 
+    {
+      font-size: 30px;
+    }
+    .form-signin 
+    {
+      width: 80%;
+      font-size: 18px;
+    }
+}
+@media only screen and (max-width: 767px)
+{
+  .navbar-fixed-top 
+  {
+    padding: 0px;
+    background-color: black;
+  }
+  .navbar-header
+  {
+    float: left;
+  }
+  .navbar-header h4
+  {
+    margin-left: 30px;
+    font-size: 24px;
+  }
+  .nav-con
+  {
+    float: right;
+  }
+  .nav-con ul li a
+  {
+    font-size: 13px;
+  }
+  .nav-con-top ul li
+  {
+    float: left;
+    padding: 3px;
+  }
+  .nav-con-top ul li a
+  {
+    font-size: 12px;
+    padding: 5px;
+  }
+  .sidebar
+  {
+      top: 76px;
+      margin: 0px;
+      padding-top: 10px; 
+      width: 20%;
+  }
+  .sidebar p 
+  {
+      padding: 15px;
+      margin: 0px;
+      font-size: 10px;
+  }
+  .sidebar p:hover 
+  {
+      color: pink;
+  }
+
+  .sidebar .side h4 
+  {
+     padding: 15px;
+     font-size: 10px;
+  }
+  .main
+  {
+    width: 80%;
+    float: right;
+  }
+  #input-area 
+  {
+      padding: 30px;
+      width: 100%;
+      border-radius: 0px;
+  }
+  #input-area input[type=text]
+  {
+      width: 72%;
+      float: left;
+
+  }
+  input[type=text]:focus
+  {
+      border-color: #ffc107;
+      width: 72%;
+      float: left;
+  }
+  .input-group-append
+  {
+      width: 20%;
+      float: right;
+      margin: 0px;
+      padding: 0px;
+  }
+  #send_message
+  {
+      float: right;
+      width: 100%;
+      font-size: 10px;
+      padding: 8px;
+  }
+  .others-msg 
+  {
+    padding: 10px;
+  }
+
+.my-msg
+ {
+    padding: 10px;
+  }
+}
+@media only screen and (max-width: 430px)
+{
+  .main .page-header 
+  {
+    font-size: 17px;
+  }
+  .nav-con-top ul li a
+  {
+    font-size: 9px;
+    padding: 5px;
+  }
 }
