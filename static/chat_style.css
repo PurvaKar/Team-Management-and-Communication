@@ -369,6 +369,13 @@ input[type=text]:focus
  {
     padding: 10px;
   }
+  #display-message-section 
+  {
+      margin-top: 5em;
+      min-height: 42vh;
+      max-height: 42vh;
+      overflow-y: auto; /*Make  this section scrolable */
+  }
 }
 @media only screen and (max-width: 430px)
 {
@@ -380,5 +387,12 @@ input[type=text]:focus
   {
     font-size: 8px;
     padding: 3px;
+  }
+  #send_message
+  {
+      float: right;
+      width: 100%;
+      font-size: 8px;
+      padding: 10px;
   }
 }
