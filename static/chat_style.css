@@ -311,7 +311,7 @@ input[type=text]:focus
   {
       padding: 15px;
       margin: 0px;
-      font-size: 10px;
+      font-size: 8px;
   }
   .sidebar p:hover 
   {
@@ -370,10 +370,10 @@ input[type=text]:focus
     padding: 10px;
   }
   #display-message-section 
-  {
-      margin-top: 5em;
-      min-height: 42vh;
-      max-height: 42vh;
+  { 
+      margin-top: 10px;
+      min-height: 55vh;
+      max-height: 60vh;
       overflow-y: auto; /*Make  this section scrolable */
   }
 }
